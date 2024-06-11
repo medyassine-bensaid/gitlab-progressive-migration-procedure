@@ -1,0 +1,21 @@
+ersion: '3.6'
+services:
+  gitlab:
+    image: gitlab/gitlab-ee:${GITLAB_VERSION}
+    container_name: gitlab
+    restart: always
+    hostname: '197.26.19.235'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://197.26.19.235:8939'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2525
+    ports:
+      - '8939:8939'
+      - '555:555'
+      - '2525:22'
+    volumes:
+      - '/home/pyxis2021/INFRA/old-gitlab/srv/gitlab/old-gitlab-tests/config:/etc/gitlab'
+      - '/home/pyxis2021/INFRA/old-gitlab/srv/gitlab/old-gitlab-tests/logs:/var/log/gitlab'
+      - '/home/pyxis2021/INFRA/old-gitlab/srv/gitlab/old-gitlab-tests/data:/var/opt/gitlab'
+      - '/home/pyxis2021/INFRA/old-gitlab/srv/gitlab/skip-auto-reconfigure:/etc/gitlab/skip-auto-reconfigure'
+    shm_size: '256m'
